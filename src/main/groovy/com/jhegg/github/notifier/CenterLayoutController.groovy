@@ -11,7 +11,7 @@ class CenterLayoutController {
     private ListView<String> listView
 
     @FXML
-    private TextArea textArea;
+    TextArea textArea;
 
     def observableList = FXCollections.<String>observableArrayList()
 
@@ -27,6 +27,11 @@ class CenterLayoutController {
         listView.getSelectionModel().selectedItemProperty().addListener(
                 {observableValue, oldValue, newValue ->
                     displayTextArea(newValue)} as ChangeListener)
+
+        GithubService githubService = new GithubService()
+        githubService.setUrl('https://status.github.com/api')
+        githubService.setController(this)
+        githubService.start()
     }
 
     private void displayTextArea(String text) {
