@@ -33,4 +33,9 @@ class CenterLayoutController {
     private void displayTextArea(GithubEvent event) {
         textArea.setText(JsonOutput.prettyPrint(event.json))
     }
+
+    void updateEvents(List<GithubEvent> githubEvents) {
+        observableList.setAll(githubEvents)
+        listView.selectionModel.selectFirst()
+    }
 }

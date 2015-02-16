@@ -34,7 +34,7 @@ class GithubService extends Service<String> {
             new GithubEvent(id: it.id, type: it.type, login: it.actor.login, created_at: it.created_at, json: JsonOutput.toJson(it))
         }
 
-        layoutController.observableList.setAll(events)
+        layoutController.updateEvents(events)
     }
 
     @Override
