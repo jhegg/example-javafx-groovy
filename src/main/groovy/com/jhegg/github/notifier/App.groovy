@@ -2,8 +2,9 @@ package com.jhegg.github.notifier
 
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
-import javafx.scene.Parent
 import javafx.scene.Scene
+import javafx.scene.layout.BorderPane
+import javafx.scene.layout.Pane
 import javafx.stage.Stage
 
 class App extends Application {
@@ -19,11 +20,16 @@ class App extends Application {
     }
 
     def getScene() {
-        new Scene(getRootLayout())
+        def rootLayout = getRootLayout()
+        rootLayout.setCenter(getCenterLayout())
+        new Scene(rootLayout)
     }
 
-    Parent getRootLayout() {
-        def loader = new FXMLLoader()
-        loader.load(getClass().getClassLoader().getResourceAsStream('RootLayout.fxml') as InputStream)
+    BorderPane getRootLayout() {
+        new FXMLLoader().load(getClass().getClassLoader().getResourceAsStream('RootLayout.fxml') as InputStream)
+    }
+
+    Pane getCenterLayout() {
+        new FXMLLoader().load(getClass().getClassLoader().getResourceAsStream('CenterLayout.fxml') as InputStream)
     }
 }
