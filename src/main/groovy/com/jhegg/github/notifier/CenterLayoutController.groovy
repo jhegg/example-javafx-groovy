@@ -1,7 +1,6 @@
 package com.jhegg.github.notifier
 
 import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.control.ListView
@@ -25,10 +24,9 @@ class CenterLayoutController {
 
         textArea.setEditable(false)
 
-        listView.getSelectionModel().selectedItemProperty().addListener({
-            ObservableValue<String> observableValue, String oldValue, String newValue ->
-            displayTextArea(newValue)
-        } as ChangeListener)
+        listView.getSelectionModel().selectedItemProperty().addListener(
+                {observableValue, oldValue, newValue ->
+                    displayTextArea(newValue)} as ChangeListener)
     }
 
     private void displayTextArea(String text) {
