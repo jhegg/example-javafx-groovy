@@ -1,5 +1,6 @@
 package com.jhegg.github.notifier
 
+import groovy.json.JsonOutput
 import javafx.beans.value.ChangeListener
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -30,6 +31,6 @@ class CenterLayoutController {
     }
 
     private void displayTextArea(GithubEvent event) {
-        textArea.setText(event.json)
+        textArea.setText(JsonOutput.prettyPrint(event.json))
     }
 }

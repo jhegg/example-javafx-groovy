@@ -1,5 +1,6 @@
 package com.jhegg.github.notifier
 
+import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.property.StringProperty
@@ -30,7 +31,7 @@ class GithubService extends Service<String> {
 
         def result = new JsonSlurper().parseText(value)
         def events = result.collect {
-            new GithubEvent(id: it.id, type: it.type, login: it.actor.login, created_at: it.created_at, json: it.toString())
+            new GithubEvent(id: it.id, type: it.type, login: it.actor.login, created_at: it.created_at, json: JsonOutput.toJson(it))
         }
 
         layoutController.observableList.setAll(events)
