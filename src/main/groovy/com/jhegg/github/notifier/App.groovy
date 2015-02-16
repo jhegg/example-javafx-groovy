@@ -8,7 +8,10 @@ import javafx.scene.layout.Pane
 import javafx.stage.Stage
 
 class App extends Application {
+    static String token
+
     static void main(String[] args) {
+        token = args[0]
         launch(App.class, args)
     }
 

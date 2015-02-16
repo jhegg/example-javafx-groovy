@@ -8,33 +8,28 @@ import javafx.scene.control.TextArea
 
 class CenterLayoutController {
     @FXML
-    private ListView<String> listView
+    private ListView<GithubEvent> listView
 
     @FXML
     TextArea textArea;
 
-    def observableList = FXCollections.<String>observableArrayList()
+    def observableList = FXCollections.<GithubEvent>observableArrayList()
 
     @SuppressWarnings("GroovyUnusedDeclaration")
     @FXML
     private void initialize() {
-        observableList.add('test1')
-        observableList.add('test2')
         listView.setItems(observableList)
-
         textArea.setEditable(false)
-
         listView.getSelectionModel().selectedItemProperty().addListener(
                 {observableValue, oldValue, newValue ->
                     displayTextArea(newValue)} as ChangeListener)
 
         GithubService githubService = new GithubService()
-        githubService.setUrl('https://status.github.com/api')
         githubService.setController(this)
         githubService.start()
     }
 
-    private void displayTextArea(String text) {
-        textArea.setText(text)
+    private void displayTextArea(GithubEvent event) {
+        textArea.setText(event.json)
     }
 }
