@@ -1,0 +1,18 @@
+apply plugin: 'groovy'
+apply plugin: 'application'
+apply from: 'javafx.plugin'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.6'
+    compile files("${System.properties['java.home']}/lib/ext/jfxrt.jar")
+}
+
+mainClassName = 'com.jhegg.github.notifier.App'
+
+javafx {
+    mainClass = mainClassName
+}
