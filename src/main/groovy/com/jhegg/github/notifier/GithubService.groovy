@@ -2,13 +2,10 @@ package com.jhegg.github.notifier
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
-import javafx.beans.property.SimpleStringProperty
-import javafx.beans.property.StringProperty
 import javafx.concurrent.Service
 import javafx.concurrent.Task
 
 class GithubService extends Service<String> {
-    private StringProperty url = new SimpleStringProperty('https://api.github.com/users/jhegg/received_events/public')
     CenterLayoutController layoutController
 
     @Override
@@ -16,7 +13,7 @@ class GithubService extends Service<String> {
         return new Task<String>() {
             @Override
             protected String call() throws Exception {
-                new URL(url.get()).getText([
+                new URL(resolvedUrl).getText([
                         'User-Agent':'groovy',
                         'Accept':'application/vnd.github.v3.text-match+json',
                         'Authorization':App.token,
@@ -41,6 +38,10 @@ class GithubService extends Service<String> {
     protected void failed() {
         super.failed()
         layoutController.textArea.setText('Failed retrieving results')
+    }
+
+    String getResolvedUrl() {
+        String.format(App.urlWithPlaceholder, App.username)
     }
 
     void setController(CenterLayoutController controller) {

@@ -9,13 +9,16 @@ import javafx.scene.layout.Pane
 import javafx.stage.Stage
 
 class App extends Application {
+    static String urlWithPlaceholder = "https://api.github.com/users/%s/received_events/public"
+    static String username = "jhegg"
     static String token = GString.EMPTY
 
     static void main(String[] args) {
         def cli = new CliBuilder()
         cli.with {
             h longOpt: 'help', 'Show usage information'
-            t longOpt: 'token', 'GitHub OAuth token'
+            t longOpt: 'token', args: 1, 'GitHub OAuth token'
+            u longOpt: 'user', args: 1, 'GitHub username to be queried'
         }
         def options = cli.parse(args)
         if (options.h) {
@@ -24,6 +27,9 @@ class App extends Application {
         }
         if (options.t) {
             token = options.t
+        }
+        if (options.u) {
+            username = options.u
         }
 
         launch(App.class, args)
