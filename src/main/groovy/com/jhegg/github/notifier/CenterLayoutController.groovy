@@ -34,6 +34,8 @@ class CenterLayoutController {
 
         if (App.userName) {
             githubService.start()
+        } else {
+            textArea.setText("Please click on Edit->Preferences and set a GitHub User Name.")
         }
     }
 
