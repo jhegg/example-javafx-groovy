@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane
 import javafx.stage.Stage
 
 class App extends Application {
-    static String urlWithPlaceholder = "https://api.github.com/users/%s/received_events/public"
+    static String urlWithPlaceholder = "https://api.github.com/users/%s/received_events"
     static String username = "jhegg"
     static String token = GString.EMPTY
 
