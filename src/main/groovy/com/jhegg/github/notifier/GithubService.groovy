@@ -13,6 +13,7 @@ class GithubService extends Service<String> {
         return new Task<String>() {
             @Override
             protected String call() throws Exception {
+                // todo How about some actual error handling?
                 new URL(resolvedUrl).getText([
                         'User-Agent':'groovy',
                         'Accept':'application/vnd.github.v3.text-match+json',
