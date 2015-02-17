@@ -17,8 +17,8 @@ class App extends Application {
         def cli = new CliBuilder()
         cli.with {
             h longOpt: 'help', 'Show usage information'
-            t longOpt: 'token', args: 1, 'GitHub OAuth token'
-            u longOpt: 'user', args: 1, 'GitHub username to be queried'
+            t longOpt: 'token', args: 1, 'GitHub OAuth token (Optional)'
+            u longOpt: 'user', args: 1, 'GitHub username to be queried (default: jhegg)'
         }
         def options = cli.parse(args)
         if (options.h) {
