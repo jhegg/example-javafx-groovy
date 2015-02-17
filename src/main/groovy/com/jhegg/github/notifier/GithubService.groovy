@@ -34,11 +34,23 @@ class GithubService extends Service<String> {
     @Override
     protected void failed() {
         super.failed()
-        layoutController.textArea.setText('Failed retrieving results')
+        layoutController.textArea.setText("Failed retrieving results from ${getResolvedUrl()} due to:\n ${getException()}")
     }
 
     String getResolvedUrl() {
-        String.format(App.urlWithPlaceholder, App.userName)
+        if (App.githubEnterpriseHostname) {
+            getResolvedGithubEnterprisePrefix() + getResolvedUrlSuffix()
+        } else {
+            App.githubUrlPrefix + getResolvedUrlSuffix()
+        }
+    }
+
+    private String getResolvedGithubEnterprisePrefix() {
+        String.format(App.githubEnterpriseUrlPrefixWithPlaceholder, App.githubEnterpriseHostname)
+    }
+
+    private String getResolvedUrlSuffix() {
+        String.format(App.githubUrlSuffixWithPlaceholder, App.userName)
     }
 
     void setController(CenterLayoutController controller) {
