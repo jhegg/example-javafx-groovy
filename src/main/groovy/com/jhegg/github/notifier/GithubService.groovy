@@ -14,11 +14,7 @@ class GithubService extends Service<String> {
             @Override
             protected String call() throws Exception {
                 // todo How about some actual error handling?
-                new URL(resolvedUrl).getText([
-                        'User-Agent':'groovy',
-                        'Accept':'application/vnd.github.v3.text-match+json',
-                        'Authorization':App.token,
-                        ])
+                new URL(resolvedUrl).getText(getHeaders())
             }
         }
     }
@@ -42,10 +38,21 @@ class GithubService extends Service<String> {
     }
 
     String getResolvedUrl() {
-        String.format(App.urlWithPlaceholder, App.username)
+        String.format(App.urlWithPlaceholder, App.userName)
     }
 
     void setController(CenterLayoutController controller) {
         this.layoutController = controller
+    }
+
+    private def getHeaders() {
+        def headers = [
+                'User-Agent': 'groovy',
+                'Accept'    : 'application/vnd.github.v3.text-match+json',
+        ]
+        if (App.token) {
+            headers << ['Authorization': App.token]
+        }
+        return headers
     }
 }

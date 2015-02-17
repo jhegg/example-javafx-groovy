@@ -10,11 +10,12 @@ import javafx.stage.Stage
 
 class App extends Application {
     static String urlWithPlaceholder = "https://api.github.com/users/%s/received_events"
-    static String username = "jhegg"
+    static String userName = GString.EMPTY
     static String token = GString.EMPTY
 
     protected Stage primaryStage
     protected CenterLayoutController centerLayoutController
+    protected RootLayoutController rootLayoutController
 
     static void main(String[] args) {
         def cli = new CliBuilder()
@@ -32,7 +33,7 @@ class App extends Application {
             token = options.t
         }
         if (options.u) {
-            username = options.u
+            userName = options.u
         }
 
         launch(App.class, args)
@@ -65,8 +66,8 @@ class App extends Application {
     private BorderPane getRootLayout() {
         def loader = new FXMLLoader(getClass().getClassLoader().getResource('RootLayout.fxml') as URL)
         BorderPane pane = loader.load()
-        RootLayoutController controller = loader.getController()
-        controller.setApp(this)
+        rootLayoutController = loader.getController()
+        rootLayoutController.setApp(this)
         return pane
     }
 
@@ -74,6 +75,7 @@ class App extends Application {
         def loader = new FXMLLoader(getClass().getClassLoader().getResource('CenterLayout.fxml') as URL)
         Pane pane = loader.load()
         centerLayoutController = loader.getController()
+        centerLayoutController.setApp(this)
         return pane
     }
 }

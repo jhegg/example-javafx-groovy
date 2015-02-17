@@ -16,6 +16,8 @@ class CenterLayoutController {
 
     def observableList = FXCollections.<GithubEvent>observableArrayList()
 
+    App app
+
     private GithubService githubService
 
     @SuppressWarnings("GroovyUnusedDeclaration")
@@ -29,7 +31,10 @@ class CenterLayoutController {
 
         githubService = new GithubService()
         githubService.setController(this)
-        githubService.start()
+
+        if (App.userName) {
+            githubService.start()
+        }
     }
 
     private void displayTextArea(GithubEvent event) {
@@ -43,6 +48,7 @@ class CenterLayoutController {
     }
 
     void refreshDisplay() {
-        githubService.restart() // todo This is not an ideal usage for proper error handling
+        if (App.userName)
+            githubService.restart() // todo This is not an ideal usage for proper error handling
     }
 }

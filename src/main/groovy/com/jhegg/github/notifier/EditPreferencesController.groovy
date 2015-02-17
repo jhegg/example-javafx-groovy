@@ -39,7 +39,7 @@ class EditPreferencesController {
 
     @FXML
     void clickedOk() {
-        App.username = userName.getText()
+        App.userName = userName.getText()
         App.token = token.getText()
         wasOkClicked = true
         dialogStage.close()
