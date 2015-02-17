@@ -13,6 +13,9 @@ class App extends Application {
     static String username = "jhegg"
     static String token = GString.EMPTY
 
+    protected Stage primaryStage
+    protected CenterLayoutController centerLayoutController
+
     static void main(String[] args) {
         def cli = new CliBuilder()
         cli.with {
@@ -35,8 +38,13 @@ class App extends Application {
         launch(App.class, args)
     }
 
+    void exitApp() {
+        Platform.exit()
+    }
+
     @Override
     void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage
         primaryStage.title = "Hello World"
         primaryStage.scene = getScene()
         primaryStage.show()
@@ -48,21 +56,24 @@ class App extends Application {
         exitApp()
     }
 
-    def getScene() {
+    private def getScene() {
         def rootLayout = getRootLayout()
         rootLayout.setCenter(getCenterLayout())
         new Scene(rootLayout)
     }
 
-    BorderPane getRootLayout() {
-        new FXMLLoader().load(getClass().getClassLoader().getResourceAsStream('RootLayout.fxml') as InputStream)
+    private BorderPane getRootLayout() {
+        def loader = new FXMLLoader(getClass().getClassLoader().getResource('RootLayout.fxml') as URL)
+        BorderPane pane = loader.load()
+        RootLayoutController controller = loader.getController()
+        controller.setApp(this)
+        return pane
     }
 
-    Pane getCenterLayout() {
-        new FXMLLoader().load(getClass().getClassLoader().getResourceAsStream('CenterLayout.fxml') as InputStream)
-    }
-
-    static void exitApp() {
-        Platform.exit()
+    private Pane getCenterLayout() {
+        def loader = new FXMLLoader(getClass().getClassLoader().getResource('CenterLayout.fxml') as URL)
+        Pane pane = loader.load()
+        centerLayoutController = loader.getController()
+        return pane
     }
 }

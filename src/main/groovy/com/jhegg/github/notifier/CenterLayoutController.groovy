@@ -16,6 +16,8 @@ class CenterLayoutController {
 
     def observableList = FXCollections.<GithubEvent>observableArrayList()
 
+    private GithubService githubService
+
     @SuppressWarnings("GroovyUnusedDeclaration")
     @FXML
     private void initialize() {
@@ -25,17 +27,22 @@ class CenterLayoutController {
                 {observableValue, oldValue, newValue ->
                     displayTextArea(newValue)} as ChangeListener)
 
-        GithubService githubService = new GithubService()
+        githubService = new GithubService()
         githubService.setController(this)
         githubService.start()
     }
 
     private void displayTextArea(GithubEvent event) {
-        textArea.setText(JsonOutput.prettyPrint(event.json))
+        if (event != null )
+            textArea.setText(JsonOutput.prettyPrint(event.json))
     }
 
     void updateEvents(List<GithubEvent> githubEvents) {
         observableList.setAll(githubEvents)
         listView.selectionModel.selectFirst()
+    }
+
+    void refreshDisplay() {
+        githubService.restart() // todo This is not an ideal usage for proper error handling
     }
 }
