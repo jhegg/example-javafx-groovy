@@ -9,10 +9,22 @@ import javafx.scene.layout.Pane
 import javafx.stage.Stage
 
 class App extends Application {
-    static String token
+    static String token = GString.EMPTY
 
     static void main(String[] args) {
-        token = args[0]
+        def cli = new CliBuilder()
+        cli.with {
+            h longOpt: 'help', 'Show usage information'
+            t longOpt: 'token', 'GitHub OAuth token'
+        }
+        def options = cli.parse(args)
+        if (options.h) {
+            cli.usage()
+        }
+        if (options.t) {
+            token = options.t
+        }
+
         launch(App.class, args)
     }
 

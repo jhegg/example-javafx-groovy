@@ -8,8 +8,8 @@ repositories {
 
 dependencies {
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
-    compile files("${System.properties['java.home']}/lib/ext/jfxrt.jar")
     compile 'org.controlsfx:controlsfx:8.20.8'
+    runtime 'commons-cli:commons-cli:1.2'
 }
 
 mainClassName = 'com.jhegg.github.notifier.App'
