@@ -20,6 +20,7 @@ class App extends Application {
         def options = cli.parse(args)
         if (options.h) {
             cli.usage()
+            return
         }
         if (options.t) {
             token = options.t
