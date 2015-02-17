@@ -46,7 +46,7 @@ class App extends Application {
     @Override
     void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage
-        primaryStage.title = "Hello World"
+        primaryStage.title = "GitHub Events using Groovy"
         primaryStage.scene = getScene()
         primaryStage.show()
     }
