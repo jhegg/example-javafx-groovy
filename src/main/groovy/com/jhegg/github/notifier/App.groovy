@@ -1,6 +1,7 @@
 package com.jhegg.github.notifier
 
 import javafx.application.Application
+import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.layout.BorderPane
@@ -22,6 +23,12 @@ class App extends Application {
         primaryStage.show()
     }
 
+    @Override
+    void stop() throws Exception {
+        super.stop()
+        exitApp()
+    }
+
     def getScene() {
         def rootLayout = getRootLayout()
         rootLayout.setCenter(getCenterLayout())
@@ -34,5 +41,9 @@ class App extends Application {
 
     Pane getCenterLayout() {
         new FXMLLoader().load(getClass().getClassLoader().getResourceAsStream('CenterLayout.fxml') as InputStream)
+    }
+
+    static void exitApp() {
+        Platform.exit()
     }
 }
