@@ -1,24 +1,5 @@
-Groovy Application project template
+Example JavaFX app with Groovy
 ------------------------------------
 
-You have just created a basic Groovy application. There is a standard project
-structure for source code and tests.
-
-In this project you get:
-
-* A Gradle build file
-* A standard project structure:
-
-    <proj>
-      |
-      +- src
-          |
-          +- main
-          |     |
-          |     +- groovy
-          |
-          +- test
-          |   |
-          |   +- groovy
-
-          |
+This is an example of a JavaFX app that uses Groovy (but not GroovyFX). It can connect to GitHub's API and fetch
+a user's received events (the stuff that other people have done which shows up on your GitHub home page).
