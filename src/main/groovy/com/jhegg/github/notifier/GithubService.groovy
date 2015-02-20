@@ -2,6 +2,7 @@ package com.jhegg.github.notifier
 
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
+import groovyx.net.http.HTTPBuilder
 import javafx.concurrent.Service
 import javafx.concurrent.Task
 
@@ -13,7 +14,11 @@ class GithubService extends Service<String> {
         return new Task<String>() {
             @Override
             protected String call() throws Exception {
-                new URL(resolvedUrl).getText(getHeaders())
+                def github = new HTTPBuilder(resolvedUrl)
+                github.get(headers: getHeaders(), contentType: 'text/plain') { response, reader ->
+                    assert response.status == 200
+                    return reader.text
+                }
             }
         }
     }
@@ -59,11 +64,11 @@ class GithubService extends Service<String> {
 
     private def getHeaders() {
         def headers = [
-                'User-Agent': 'groovy',
-                'Accept'    : 'application/vnd.github.v3.text-match+json',
+                'User-Agent': 'Apache HTTPClient',
+                'Accept'    : 'application/vnd.github.v3+json',
         ]
         if (App.token) {
-            headers << ['Authorization': App.token]
+            headers << ['Authorization': "token $App.token"]
         }
         return headers
     }
